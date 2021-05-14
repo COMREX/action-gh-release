@@ -210,7 +210,7 @@ export const release = async (
         commitMessage = ` using commit "${target_commitish}"`;
       }
       console.log(
-        `👩‍🏭 Creating new GitHub release for tag ${tag_name}${commitMessage}...`
+        `👩‍🏭 Creating new GitHub release for tag ${tag_name}${commitMessage}... owner=${owner} repo=${repo}`
       );
       try {
         let release = await releaser.createRelease({
