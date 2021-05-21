@@ -8,14 +8,17 @@ if [[ $# -ne 1 ]]; then
 	exit 1
 fi
 
+npm run build
+
 git checkout master
 git branch -D releases/$1 || echo "No such branch"
 
 git checkout -b releases/$1 # If this branch already exists, omit the -b flag
 rm -rf node_modules
-sed -i '/node_modules/d' .gitignore # Bash command that removes node_modules from .gitignore
+sed -i '/node_modules/d' .gitignore # Remove node_modules from .gitignore
+sed -i '/dist/d' .gitignore # Remove dist from .gitignore
 npm install --production
-git add node_modules -f .gitignore
+git add node_modules dist -f .gitignore
 git commit -m node_modules
 git push origin releases/$1 --force
 
@@ -23,3 +26,6 @@ git tag -d $1 || echo "No such local tag"
 git push --delete origin $v1 || echo "No such remote tag"
 git tag -a $1 -m $1
 git push origin $1
+
+git checkout master
+git branch -D releases/$1
