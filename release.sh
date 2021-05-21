@@ -8,6 +8,9 @@ if [[ $# -ne 1 ]]; then
 	exit 1
 fi
 
+git checkout master
+git branch -D releases/$1 || echo "No such branch"
+
 git checkout -b releases/$1 # If this branch already exists, omit the -b flag
 rm -rf node_modules
 sed -i '/node_modules/d' .gitignore # Bash command that removes node_modules from .gitignore
