@@ -1,7 +1,10 @@
 #!/bin/bash
+
 # actions requires a node_modules dir https://github.com/actions/toolkit/blob/master/docs/javascript-action.md#publish-a-releasesv1-action
 # but its recommended not to check these in https://github.com/actions/toolkit/blob/master/docs/action-versioning.md#recommendations
 # as such the following hack is how we dill with it
+
+set +o xtrace
 
 if [[ $# -ne 1 ]]; then
 	echo "please pass a release version. i.e. $0 v1"
