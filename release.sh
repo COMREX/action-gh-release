@@ -17,7 +17,7 @@ sed -i '/node_modules/d' .gitignore # Bash command that removes node_modules fro
 npm install --production
 git add node_modules -f .gitignore
 git commit -m node_modules
-git push origin releases/$1
+git push origin releases/$1 --force
 
 git tag -d $1 || echo "No such local tag"
 git push --delete origin $v1 || echo "No such remote tag"
