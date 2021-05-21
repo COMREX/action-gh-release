@@ -21,5 +21,5 @@ git push origin releases/$1 --force
 
 git tag -d $1 || echo "No such local tag"
 git push --delete origin $v1 || echo "No such remote tag"
-git tag -a $1 $1
+git tag -a $1 -m $1
 git push origin $1
