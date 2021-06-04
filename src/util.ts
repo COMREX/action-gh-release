@@ -16,6 +16,8 @@ export interface Config {
   input_prerelease?: boolean;
   input_fail_on_unmatched_files?: boolean;
   input_target_commitish?: string;
+
+  retry?: boolean;
 }
 
 export const releaseBody = (config: Config): string | undefined => {

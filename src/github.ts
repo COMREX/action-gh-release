@@ -225,10 +225,16 @@ export const release = async (
         });
         return release.data;
       } catch (error) {
+        if (config.retry === false) {
+          process.exit(1);
+        }
+
         // presume a race with competing metrix runs
         console.log(
           `⚠️ GitHub release failed with status: ${error.status}, retrying...`
         );
+
+        config.retry = false;
         return release(config, releaser);
       }
     } else {
