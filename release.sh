@@ -17,8 +17,8 @@ git push origin --delete releases/$1 || echo "No such remote branch"
 
 git checkout -b releases/$1
 rm -rf node_modules
-sed -i '/node_modules/d' .gitignore # Remove node_modules from .gitignore
-sed -i '/dist/d' .gitignore # Remove dist from .gitignore
+sed -i '.bak' '/node_modules/d' .gitignore # Remove node_modules from .gitignore
+sed -i '.bak' '/dist/d' .gitignore # Remove dist from .gitignore
 
 npm install
 npm run build
