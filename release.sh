@@ -7,14 +7,15 @@
 set +o xtrace
 
 if [[ $# -ne 1 ]]; then
-	echo "please pass a release version. i.e. $0 v1"
+	echo "You must provide a version, like: $0 v1"
 	exit 1
 fi
 
 git checkout master
-git branch -D releases/$1 || echo "No such branch"
+git branch -D releases/$1 || echo "No such local branch"
+git push origin --delete releases/$1 || echo "No such remote branch"
 
-git checkout -b releases/$1 # If this branch already exists, omit the -b flag
+git checkout -b releases/$1
 rm -rf node_modules
 sed -i '/node_modules/d' .gitignore # Remove node_modules from .gitignore
 sed -i '/dist/d' .gitignore # Remove dist from .gitignore
@@ -27,7 +28,7 @@ git commit -m node_modules
 git push origin releases/$1 --force
 
 git tag -d $1 || echo "No such local tag"
-git push --delete origin $v1 || echo "No such remote tag"
+git push --delete origin $1 || echo "No such remote tag"
 git tag -a $1 -m $1
 git push origin $1
 
